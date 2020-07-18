@@ -85,6 +85,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('footer_script')

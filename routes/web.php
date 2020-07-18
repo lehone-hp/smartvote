@@ -1,5 +1,61 @@
 <?php
 
+
+use Intervention\Image\Facades\Image;
+
+Route::get('test', function () {
+    $height = 400;
+    $width = 600;
+
+    $img = Image::make(public_path('img/long.png'))->heighten($height);
+    $canvas = Image::canvas($width, $height, 'rgb(255,255,255)');
+
+    // if image is tall image
+    if ($img->width() > $width) {
+        $img = $img->widen($width);
+    }
+
+    $canvas->insert($img, 'center');
+
+
+    return $canvas->response('png');
+
+});
+
+
+
+
+
+
+
+
+
+Route::get('email-test', function(){
+
+    $details['email'] = 'lehone4hope@gmail.com';
+
+    dispatch(new App\Jobs\SendEmailJob($details, new \App\Mail\SendEmail()));
+    dd('done');
+});
+
+
+Route::get('/try', 'HomeController@try')->name('try');
+Route::get('/delete-email', 'HomeController@deleteEmailAlerts');
+Route::post('/delete-email', 'HomeController@deleteAlert')->name('delete_alerts');
+
+Route::get('/paypal', 'HomeController@paypalForm')->name('paywithpaypal');
+Route::Post('/paypal', 'HomeController@payWithpaypal')->name('paywithpaypal');
+Route::get('/paypal/status', 'HomeController@getPaymentStatus')->name('paywithpaypal.status');
+
+Route::get('/qr_code', function () {
+    $image = QrCode::format('png')->encoding('UTF-16BE')
+        ->margin(2)->size(300)->generate('Make me into an QrCode!');
+
+    $image = base64_encode($image);
+
+    return view('qr_code', compact('image'));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

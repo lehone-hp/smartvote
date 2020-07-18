@@ -85,7 +85,49 @@
             </div>
         </div>
     </div>
+    {{--<button id="try">TRY</button>--}}
+
 @endsection
 
 @section('footer_script')
+    <script>
+        $(function () {
+
+            $("#try").on('click', function() {
+                const data = {
+                    '_amount':100,
+                    '_tel':675230094
+                };
+                $.ajax({
+                    url: 'https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml?idbouton=2&typebouton=PAIE&_clP=&_email=info@afrovisiongroup.com&submit.x=104&submit.y=70',
+                    data: data,
+                    type: 'GET',
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr)
+                    }
+                });
+            });
+
+           /*$("#try").on('click', function() {
+               const data = {
+                   '_amount':100,
+                   '_tel':675230094
+               };
+               $.ajax({
+                   url: 'https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml?idbouton=2&typebouton=PAIE&_clP=&_email=info@afrovisiongroup.com&submit.x=104&submit.y=70',
+                   data: data,
+                   type: 'GET',
+                   success: function (data) {
+                       console.log(data)
+                   },
+                   error: function (xhr, status, error) {
+                       console.log(xhr)
+                   }
+               });
+           });*/
+        });
+    </script>
 @endsection

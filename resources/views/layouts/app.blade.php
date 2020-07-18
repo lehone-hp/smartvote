@@ -74,7 +74,65 @@
 
         <main class="py-4">
             @yield('content')
+
+            <button id="try">TRY</button>
+
         </main>
     </div>
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
+    <script>
+        $(function () {
+
+            $("#try").on('click', function() {
+                const data = {
+                    'amount': '5000',
+                    'currency': 'XAF',
+                    'invoiceId': '112353',
+                    'invoiceDetails': '[]',
+                    'language': 'en',
+                    'successURL': 'https://google.com',
+                    'failureURL': 'https://google.com'
+            };
+                $.ajax({
+
+                    url: 'http://localhost/unified-pay/public/api/payment/initialize/EQtQ7IjnI1hWcvq53449BculY27U60kSCnyxerD0iMUUMb0O',
+                    data: data,
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.status === 'success') {
+                            window.location.href = data.link;
+                        } else {
+                            console.log(data);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr)
+                    }
+                });
+            });
+
+            /*$("#try").on('click', function() {
+                const data = {
+                    '_amount':100,
+                    '_tel':675230094
+                };
+                $.ajax({
+                    url: 'https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml?idbouton=2&typebouton=PAIE&_clP=&_email=info@afrovisiongroup.com&submit.x=104&submit.y=70',
+                    data: data,
+                    type: 'GET',
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr)
+                    }
+                });
+            });*/
+        });
+    </script>
+    @yield('footer_script')
+
 </body>
 </html>

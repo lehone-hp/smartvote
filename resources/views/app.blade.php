@@ -218,6 +218,7 @@
 <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
 <script src="{{ asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
+
 @yield('footer_script')
 </body>
 

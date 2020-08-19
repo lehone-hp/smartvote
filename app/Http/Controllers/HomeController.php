@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Jwplayer\JwplatformAPI;
 use PayPal\Api\Amount;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
@@ -199,13 +201,76 @@ class HomeController extends Controller
     function deleteAlert(Request $request)
     {
 
-        $ch = curl_init('https://www.njorku.com/api/deleteEmailAlerts?email='.$request->email);
+        $ch = curl_init('https://www.njorku.com/api/deleteEmailAlerts?email=' . $request->email);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $response = json_decode(curl_exec($ch));
         curl_close($ch);
 
         return response()->json($response);
+
+    }
+
+    function uploadChunks(Request $request)
+    {
+        if ($request->file('file')) {
+
+            $dzuuid = $request->get('dzuuid');
+            $chunk_index = $request->get('dzchunkindex');
+
+            $name = $dzuuid . '_' . $chunk_index . '.part';
+            $path = Storage::putFileAs('/public/uploads', $request->file('file'), $name);
+
+            return response()->json([
+                'status' => 'success',
+                'path'   => $path
+            ]);
+        }
+        return response()->json([
+            'status' => 'failed'
+        ]);
+    }
+
+    function concatChunks(Request $request)
+    {
+        $dzuuid = $request->get('dzuuid');
+        $chunk_count = $request->get('chunk_count');
+
+        $file_name = 'dzone/' . time().time().($request->get('ext') ? '.'.$request->get('ext') : '');
+
+        for ($i = 0; $i < $chunk_count; $i++) {
+            $chunk_path = 'public/uploads/' . $dzuuid . '_' . $i . '.part';
+            Storage::append($file_name, Storage::get($chunk_path));
+            Storage::delete($chunk_path);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'path'   => $file_name
+        ]);
+    }
+
+    function uploadToJW(Request $request) {
+
+        $jwplatform_api = new JwplatformAPI(
+            '3zXqk1W4',
+            'zLnsniU0ToHPgb9JHZracKt2'
+        );
+
+        $target_file = storage_path('app/'.$request->get('filename'));
+        //dump($target_file);
+        $params = array();
+        $params['title'] = 'File Test 325';
+        $params['description'] = 'Video description here';
+
+        // Create video metadata
+        $create_response = json_encode($jwplatform_api->call('/videos/create', $params));
+        $decoded = json_decode(trim($create_response), TRUE);
+        $upload_link = $decoded['link'];
+
+        $upload_response = $jwplatform_api->upload($target_file, $upload_link);
+
+        return response()->json($upload_response);
 
     }
 }

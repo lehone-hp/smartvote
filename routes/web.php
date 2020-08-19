@@ -92,4 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Auth::routes();
+Route::post('/upload',  'HomeController@uploadChunks')->name('upload.dropzone');
+Route::post('/upload/concat',  'HomeController@concatChunks')->name('concat.dropzone');
+Route::post('/upload/jwplayer',  'HomeController@uploadToJW')->name('jw.upload');
 

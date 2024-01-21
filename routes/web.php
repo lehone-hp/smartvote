@@ -222,7 +222,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 Route::get('/test', function (){
-    $target = '/home/afrov/dev.afrovisiongroup.com/public/images';
+    $target = '/home/afrov/avn_website/public/images';
     $link = '/home/afrov/public_html/images';
 
     return symlink($target,$link);

@@ -6,9 +6,11 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        @if(Auth::id() == 1)
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
            data-toggle="modal" data-target="#createElectionModal">
             <i class="fas fa-plus-circle fa-sm text-white-50"></i> Create Election</a>
+        @endif
     </div>
 
     <div class="row">
@@ -20,7 +22,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Active Elections</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Election::all()->count() }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Election::all()->count() }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-book-open fa-2x text-gray-300"></i>
@@ -37,7 +39,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Registered Candidates</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Candidate::all()->count() }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Candidate::all()->count() }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -56,7 +58,7 @@
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Votes Casted</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ \App\Election::all()->sum('votez') }}</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ \App\Models\Election::all()->sum('votez') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -90,44 +92,4 @@
 @endsection
 
 @section('footer_script')
-    <script>
-        $(function () {
-
-            $("#try").on('click', function() {
-                const data = {
-                    '_amount':100,
-                    '_tel':675230094
-                };
-                $.ajax({
-                    url: 'https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml?idbouton=2&typebouton=PAIE&_clP=&_email=info@afrovisiongroup.com&submit.x=104&submit.y=70',
-                    data: data,
-                    type: 'GET',
-                    success: function (data) {
-                        console.log(data)
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr)
-                    }
-                });
-            });
-
-           /*$("#try").on('click', function() {
-               const data = {
-                   '_amount':100,
-                   '_tel':675230094
-               };
-               $.ajax({
-                   url: 'https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml?idbouton=2&typebouton=PAIE&_clP=&_email=info@afrovisiongroup.com&submit.x=104&submit.y=70',
-                   data: data,
-                   type: 'GET',
-                   success: function (data) {
-                       console.log(data)
-                   },
-                   error: function (xhr, status, error) {
-                       console.log(xhr)
-                   }
-               });
-           });*/
-        });
-    </script>
 @endsection

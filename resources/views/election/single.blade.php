@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <div class="d-sm-flex align-items-center justify-content-between mb-3">
         <div class="d-sm-flex">
             <h1 class="h3 mb-0 mr-3 text-gray-800">{{ $election->name }}</h1>
             @if(Auth::id() == 1)
@@ -13,8 +13,8 @@
                 <i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Candidate</a>
             @endif
         </div>
-        <button onclick="vote()" id="castVoteButton" class="btn btn-primary btn-sm">
-            <i class="fas fa-vote-yea fa-sm text-white-50"></i> Cast Votes</button>
+        <button onclick="vote()" id="castVoteButton" class="btn btn-primary">
+            <i class="fas fa-vote-yea text-white-50"></i> Cast Votes</button>
     </div>
 
     <!-- Content Row -->
@@ -285,14 +285,15 @@
                 },
                 error: function (xhr, status, error) {
                     alert('An Error Occurred while casting vote.')
+                },
+                complete: function() {
+                    $('#castVoteButton').attr("disabled", false);
                 }
             });
 
         }
 
         function decVote(candidate_id) {
-
-
             const data = {
                 candidate_id : candidate_id,
                 _token : '{{ @csrf_token() }}'

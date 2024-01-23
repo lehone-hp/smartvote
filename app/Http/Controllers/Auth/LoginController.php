@@ -48,14 +48,6 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if (Auth::id() == 2) {
-            return redirect()->route('election.single', ['election_id'=>1]);
-        }
-
-        if (Auth::id() == 3) {
-            return redirect()->route('election.single', ['election_id'=>2]);
-        }
-
         return redirect()->route('home');
     }
 }

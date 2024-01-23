@@ -6,9 +6,11 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Elections</h1>
+        @if(Auth::id() == 1)
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
            data-toggle="modal" data-target="#createElectionModal">
             <i class="fas fa-plus-circle fa-sm text-white-50"></i> Create Election</a>
+        @endif
     </div>
 
     <!-- Content Row -->
@@ -40,7 +42,7 @@
                                     <td>{{ $election->name }}</td>
                                     <td>{{ $election->candidates->count() }}</td>
                                     <td>{{ $election->votez }}</td>
-                                    <td><a href="{{ route('election.single', ['id'=>$election->id]) }}" class="btn btn-primary btn-sm btn-block">View</a></td>
+                                    <td><a href="{{ route('election.single', [$election->id]) }}" class="btn btn-primary btn-sm btn-block">View</a></td>
                                 </tr>
                             @endforeach
                         @else

@@ -39,8 +39,7 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-        @if(Auth::id() == 1)
+        
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
@@ -57,6 +56,7 @@
                 <span>Elections</span></a>
         </li>
 
+    @if(Auth::id() == 1)
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
@@ -65,9 +65,9 @@
                 <i class="fas fa-fw fa-users"></i>
                 <span>Candidates</span></a>
         </li>
+        @endif
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-        @endif
 
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('logout') }}">
@@ -90,7 +90,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" class="py-4">
 
             {{--
             <!-- Topbar -->

@@ -91,11 +91,9 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content" class="py-4">
-
-            {{--
+        <div id="content" class="py-md-4">
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow d-md-none">
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -132,7 +130,7 @@
 
             </nav>
             <!-- End of Topbar -->
-            --}}
+           
 
             <!-- Begin Page Content -->
             <div class="container-fluid">

@@ -61,3 +61,30 @@
     }
 }
 
+
+@media(max-width: 768px) {
+    .candidate .img-wrapper img {
+        height: 140px;
+    }
+
+    .candidate .label {
+        font-size: 14px;
+    }
+
+    .candidate .vote-label {
+        font-size: 8px;
+    }
+
+    .candidate .candidate-name {
+        font-size: 12px;
+    }
+
+    .candidate .vote-count {
+        font-size: 16px;
+    }
+
+    #castVoteButton {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}

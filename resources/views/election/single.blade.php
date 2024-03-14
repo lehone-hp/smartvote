@@ -13,8 +13,10 @@
                     <i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Candidate</a>
             @endif
         </div>
-        <button onclick="vote()" id="castVoteButton" class="btn btn-primary">
-            <i class="fas fa-vote-yea text-white-50"></i> Cast Votes</button>
+        <div class="text-right">
+            <button onclick="vote()" id="castVoteButton" class="btn btn-primary ">
+                <i class="fas fa-vote-yea text-white-50"></i> Cast Votes</button>
+        </div>
     </div>
     
     <!-- Content Row -->
@@ -32,7 +34,7 @@
             
             <div class="row candidate-list">
                 @foreach($election->candidates as $candidate)
-                    <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
+                    <div class="col-xl-3 col-md-4 col-6 mb-3">
                         <div class="card border-left-primary shadow h-100 candidate add-vote"
                              onclick="vote">
                             <div class="img-wrapper">
